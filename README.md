@@ -13,3 +13,6 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
+
+To download the dataset
+wget https://archive.ics.uci.edu/ml/machine-learning-databases/covtype/covtype.data.gz
