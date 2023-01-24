@@ -1,9 +1,9 @@
 import pymongo
 import pandas as pd
 import json
+from sensor.config import mongo_client
 
-# Provide the mongodb localhost url to connect python to mongodb.
-client = pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
+
 
 DATA_FILE_PATH = '/config/workspace/covtype.data.gz'
 DATABASE_NAME = 'forest_cover'
@@ -15,9 +15,13 @@ if __name__ == '__main__':
 
     #Convert dataframe to json so that we can dump these record into mongodb
     df.reset_index(drop=True,inplace=True)
+    
+    #Taking sample dataset
+    data=df.sample(40000)
 
-    json_record =list(json.loads(df.T.to_json()).values())
+    json_record =list(json.loads(data.T.to_json()).values())
+
     print(json_record[0])
 
     #insert converted json record in mongodb 
-    client[DATABASE_NAME][COLLECTION_NAME].insert_many(json_record)
+    mongo_client[DATABASE_NAME][COLLECTION_NAME].insert_many(json_record)
