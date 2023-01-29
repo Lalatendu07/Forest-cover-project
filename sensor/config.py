@@ -10,7 +10,7 @@ from dataclasses import dataclass
 class EnvironmentVariable:
     mongo_db_url:str = os.getenv("MONGO_DB_URL")
     aws_access_key_id:str = os.getenv("AWS_ACCESS_KEY_ID")
-    aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+    aws_secret_access_key:str = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 env_var = EnvironmentVariable()    
 

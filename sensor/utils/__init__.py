@@ -3,6 +3,7 @@ from sensor.config import mongo_client
 from sensor.exception import SensorException
 from sensor.logger import logging
 import os , sys
+import yaml
 
 def get_collection_as_DataFrame(database_name:str , collection_name:str)-> pd.DataFrame:
     """
@@ -25,3 +26,17 @@ def get_collection_as_DataFrame(database_name:str , collection_name:str)-> pd.Da
        return df
     except Exception as e:
         raise SensorException(e, sys)
+
+
+def write_yaml_file(file_path,data:dict):
+    try:
+        file_dir = os.path.dirname(file_path)
+        os.makedirs(file_dir, exist_ok=True)
+        with open(file_path,'w') as file_writer:
+            yaml.dump(data,file_writer)
+    except Exception as e:
+        raise SensorException(e, sys)
+
+
+
+
