@@ -9,7 +9,7 @@ def error_message_detail(error , error_detail:sys):
     return error_message
 
 
-class SensorException(Exception):
+class ForestException(Exception):
 
     def __init__(self,error_message, error_detail:sys):
         self.error_message = error_message_detail(

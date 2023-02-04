@@ -1,7 +1,7 @@
-from sensor.entity import config_entity , artifact_entity
-from sensor.exception import SensorException
-from sensor.logger import logging
-from sensor import utils
+from forest_type.entity import config_entity , artifact_entity
+from forest_type.exception import ForestException
+from forest_type.logger import logging
+from forest_type import utils
 from scipy.stats import ks_2samp
 import pandas as pd
 import os , sys
@@ -18,7 +18,7 @@ class DataValidation:
             self.data_ingestion_artifact = data_ingestion_artifact
             self.validation_error = dict()
         except Exception as e :
-            raise SensorException(e, sys)  
+            raise ForestException(e, sys)  
 
 
     def is_required_column_exist(self, base_df:pd.DataFrame, current_df:pd.DataFrame,report_key_name:str)->bool:
@@ -37,7 +37,7 @@ class DataValidation:
                 return False
             return True            
         except Exception as e:
-            raise SensorException(e, sys)
+            raise ForestException(e, sys)
 
     def data_drift(self,base_df:pd.DataFrame, current_df:pd.DataFrame,report_key_name:str):
         try:
@@ -69,7 +69,7 @@ class DataValidation:
 
             self.validation_error[report_key_name]=drift_report
         except Exception as e:
-            raise SensorException(e, sys)     
+            raise ForestException(e, sys)     
 
     def initiate_data_validation(self)->artifact_entity.DataTransformationArtifact:
 
@@ -103,4 +103,4 @@ class DataValidation:
             logging.info(f"Data validation artifact: {data_validation_artifact}")
             return data_validation_artifact
         except Exception as e:
-            raise SensorException(e, sys)
+            raise ForestException(e, sys)

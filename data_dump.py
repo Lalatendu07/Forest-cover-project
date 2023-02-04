@@ -1,13 +1,13 @@
 import pymongo
 import pandas as pd
 import json
-from sensor.config import mongo_client
+from forest_type.config import mongo_client
 
 
 
 DATA_FILE_PATH = '/config/workspace/covtype.data.gz'
 DATABASE_NAME = 'forest_cover'
-COLLECTION_NAME = 'sensor'
+COLLECTION_NAME = 'cover_type_data'
 
 if __name__ == '__main__':
     df = pd.read_csv(DATA_FILE_PATH)

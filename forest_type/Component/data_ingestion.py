@@ -1,8 +1,8 @@
-from sensor import utils
-from sensor.entity import config_entity
-from sensor.entity import artifact_entity
-from sensor.exception import SensorException
-from sensor.logger import logging
+from forest_type import utils
+from forest_type.entity import config_entity
+from forest_type.entity import artifact_entity
+from forest_type.exception import ForestException
+from forest_type.logger import logging
 import os , sys
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -15,7 +15,7 @@ class DataIngestion:
         try:
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
-            raise SensorException(e, sys) 
+            raise ForestException(e, sys) 
 
     def initiate_data_ingestion(self)->artifact_entity.DataIngestionArtifact:
         try:
@@ -59,4 +59,4 @@ class DataIngestion:
             return data_ingestion_artifact
 
         except Exception as e:
-            raise SensorException(e, sys)           
+            raise ForestException(e, sys)           
