@@ -22,16 +22,16 @@ class ModelTrainer:
             raise ForestException(e, sys)
 
     #Hyperparameter tuning using GridSearchCV
-    #def model_tuner(self,x,y):
-    #    try:
-     #       param_grid_xgboost = {'learning_rate': [0.5, 0.1, 0.01, 0.001],'max_depth': [3, 5, 10, 20],'n_estimators': [10, 50, 100, 200]}
-      #      grid= GridSearchCV(XGBClassifier(objective='multi:softprob'),param_grid_xgboost, verbose=3,cv=5,n_jobs=-1)
-       #     grid.fit(x,y)
-        #    learning_rate = grid.best_params_['learning_rate']
-        #    max_depth = grid.best_params_['max_depth']
-        #    n_estimators = grid.best_params_['n_estimators']
-        #    xgb = XGBClassifier(learning_rate=learning_rate, max_depth=max_depth, n_estimators=n_estimators)
-         #   return xgb
+    def model_tuner(self,x,y):
+        try:
+            param_grid_xgboost = {'learning_rate': [0.5, 0.1, 0.01, 0.001],'max_depth': [3, 5, 10, 20],'n_estimators': [10, 50, 100, 200]}
+            grid= GridSearchCV(XGBClassifier(objective='multi:softprob'),param_grid_xgboost, verbose=3,cv=5,n_jobs=-1)
+            grid.fit(x,y)
+            learning_rate = grid.best_params_['learning_rate']
+            max_depth = grid.best_params_['max_depth']
+            n_estimators = grid.best_params_['n_estimators']
+            xgb = XGBClassifier(learning_rate=learning_rate, max_depth=max_depth, n_estimators=n_estimators)
+            return xgb
                               
         except Exception as e:
             raise ForestException(e, sys)
@@ -39,7 +39,7 @@ class ModelTrainer:
 
     def train_model(self,x,y):
         try:
-            xgb_clf = XGBClassifier()#self.model_tuner(x=x,y=y)
+            xgb_clf = self.model_tuner(x=x,y=y)
             xgb_clf.fit(x,y)
             return xgb_clf
         except Exception as e:
